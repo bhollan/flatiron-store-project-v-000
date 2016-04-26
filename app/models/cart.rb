@@ -12,11 +12,21 @@ class Cart < ActiveRecord::Base
     sum
   end
 
-  def add_item(item_id)
+  def add_item(id_of_item)
     #add's line_item to this cart
     #does not insert pre-existing item, updates quantity
     #returns the line_item created
-    LineItem.find_or_initialize_by(item_id:item_id, cart_id:self.id)
+    # LineItem.find_or_initialize_by(item_id:item_id, cart_id:self.id)
+    # ^-- this works, but with lots of bugs
+
+    li = LineItem.where(item_id:id_of_item, cart_id:self.id)
+    if li.size == 1
+      li.first.quantity += 1
+      li.first.save
+      li.first
+    else
+      li = LineItem.new(item_id:id_of_item, cart_id:self.id)
+    end
   end
 
 end

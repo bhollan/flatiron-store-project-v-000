@@ -1,2 +1,4 @@
 <h1><%= @item.title %></h1>
-<h2>$ <%= @item.price %></h2>
+<h3><%= link_to @item.category.title, category_path(@item.category) %></h3>
+<h4>Only <%= @item.inventory %> remaining!  Act now!</h4>
+<h2>$ <%= @item.price/100 %></h2>

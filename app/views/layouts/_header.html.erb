@@ -3,14 +3,14 @@
         <li> <%= link_to "Store Home", store_path %> </li>
         <% if current_user %>
           <li><%= link_to "Signed in as #{current_user.email}", edit_user_registration_path %></li>
-          <li><%= link_to "Sign out", destroy_user_session_path %></li>
-          <% binding.pry %>
+          <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+          <% if current_cart %>
+            <%# <% binding.pry %>
+            <li><%= link_to "Cart", cart_path(current_cart)%></li>
+          <% end %>
         <% else %>
-          <li><%= link_to "Sign in", new_user_registration_path %></li>
-          <li><%= link_to "Sign up", new_user_session_path %></li>
-        <% end %>
-        <% if !!@cart %>
-          <li> <%= link_to "Cart", cart_path(current_cart) %></li>
+          <li><%= link_to "Sign up", new_user_registration_path %></li>
+          <li><%= link_to "Sign in", new_user_session_path %></li>
         <% end %>
     </ul>
 </nav>
